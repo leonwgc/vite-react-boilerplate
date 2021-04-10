@@ -1,10 +1,17 @@
+import path from 'path';
 import reactRefresh from '@vitejs/plugin-react-refresh';
 import styleImport from 'vite-plugin-style-import';
-import path from 'path';
+import legacy from '@vitejs/plugin-legacy';
+
+const customConfig = {
+  publicPath: '/', // 打包生产环境时使用
+  theme: '#004bcc', // antd 主题色
+  supportLegacyBrowsers: false, //是否支持老的的浏览器，e.g. IE ，设置true生产打包时minify使用 terser, 否则使用更快的esbuild (包体积也稍大)
+};
 
 const modifyVars = {
-  '@primary-color': '#004bcc',
-  '@link-color': '#004bcc',
+  '@primary-color': customConfig.theme,
+  '@link-color': customConfig.theme,
 };
 
 export default ({ command, mode }) => {
@@ -45,7 +52,6 @@ export default ({ command, mode }) => {
         ],
       }),
     ],
-    outDir: 'dist',
     resolve: {
       alias: {
         '~': path.resolve(__dirname, './src'),
@@ -60,6 +66,19 @@ export default ({ command, mode }) => {
       port: 9004,
     };
   } else {
+    config.base = customConfig.publicPath;
+    if (customConfig.supportLegacyBrowsers) {
+      config.plugins.push(legacy());
+    }
+
+    config.build = {
+      outDir: `dist`,
+      assetsDir: '',
+      emptyOutDir: true,
+      assetsInlineLimit: 10240,
+      manifest: true,
+      minify: customConfig.supportLegacyBrowsers ? 'terser' : 'esbuild',
+    };
   }
 
   return config;
