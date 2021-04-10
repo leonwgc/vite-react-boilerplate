@@ -1,225 +1,40 @@
-# antd-form-render
+#  基于vite2的react脚手架
 
-简单使用 javascript 对象配置，实现Antd表单开发. 已经在多个项目中使用。
+### 开发编译
+* yarn start 启动开发
+* yarn build 启动编译
 
-## 安装
+### 代码质量和风格
+husky+lint-staged+ eslint+prettier 代码commit 自动eslint检查控制代码质量， prettier自动格式化统一代码风格 , 可以自行扩展加上commit-msg 代码提交说明检查等。
 
- 用npm [npm](https://npmjs.org/) / [yarn](https://yarnpkg.com) 安装:
+### HRM
+@vitejs/plugin-react-refresh 实现react HRM 
 
-
-
-    $ npm install --save antd-form-render
-    $ yarn add antd-form-render
-
-
-
-## 功能
-
-* 配置一维数组实现 一行一列
-* 配置二维数组实现 一行多列
-
-
-### 实现一行一列
-
-```jsx
-import React, { useState } from 'react';
-import FormRender from 'antd-form-render';
-import { Form, Button, Space, Input, Radio, Select } from 'antd';
-
-export default function App() {
-  const [data, setData] = useState({});
-
-  // 定义form
-  const [form] = Form.useForm();
-
-  // 一维数组定义layout，从上往下一行放一个表单控件
-  const layout = [
-    {
-      type: Input,
-      label: '手机号',
-      placeholder: '请输入',
-      name: 'tel',
-      // 对Input的配置 , elProps对type指定的组件配置
-      elProps: {
-        maxLength: 11,
-      },
-      // 对Form.Item的配置
-      itemProps: {
-        rules: [
-          { required: true, message: '请输入' },
-          { pattern: /^1\d{10}$/, message: '手机号必须为11位数字' },
-        ],
-      },
-    },
-    {
-      type: Input.Password,
-      label: '密码',
-      placeholder: '请输入',
-      name: 'pwd',
-      itemProps: {
-        rules: [{ required: true, message: '请输入' }],
-      },
-    },
-    {
-      type: Input.Password,
-      label: '确认密码',
-      placeholder: '请输入',
-      name: 'confirmPwd',
-      itemProps: {
-        rules: [
-          { required: true, message: '请输入' },
-          ({ getFieldValue }) => ({
-            validator(_, value) {
-              if (!value || getFieldValue('pwd') === value) {
-                return Promise.resolve();
-              }
-              return Promise.reject(new Error('两次密码不一致'));
-            },
-          }),
-        ],
-      },
-    },
-    {
-      type: Radio.Group,
-      label: '性别',
-      name: 'gender',
-      elProps: {
-        options: [
-          { label: '男', value: '男' },
-          { label: '女', value: '女' },
-        ],
-      },
-    },
-    {
-      // 根据条件动态返回object
-      getJSON() {
-        return data.gender === '男'
-          ? {
-              type: Input,
-              label: '兴趣爱好(男)',
-              placeholder: '请输入兴趣爱好',
-              name: 'hobby',
-              itemProps: {
-                rules: [{ required: true, message: '请输入兴趣爱好' }],
-              },
-            }
-          : data.gender === '女'
-          ? {
-              type: Select,
-              label: '兴趣爱好(女)',
-              placeholder: '请选择兴趣爱好',
-              name: 'hobby',
-              itemProps: {
-                itemProps: {
-                  rules: [{ required: true, message: '请选择兴趣爱好' }],
-                },
-              },
-              elProps: {
-                options: [
-                  { label: '画画', value: '画画' },
-                  { label: '唱歌', value: '唱歌' },
-                  { label: '跳舞', value: '跳舞' },
-                ],
-              },
-            }
-          : null;
-      },
-    },
-    {
-      type: Input.TextArea,
-      name: 'desc',
-      label: '简介',
-      elProps: {
-        placeholder: '个人简介',
-        rows: 4,
-      },
-      itemProps: {
-        rules: [
+### 代码库（样式）按需加载
+ 样式按需加载 (组件不存在这个问题)，默认配置了antd 和zarm组件库,对于其他组件库， 参考vite-plugin-style-import 文档
+```js
+ plugins: [
+      styleImport({
+        libs: [
           {
-            required: true,
+            libraryName: 'antd',
+            esModule: true,
+            resolveStyle: (name) => {
+              return `antd/es/${name}/style/index`;
+            },
+          },
+          {
+            libraryName: 'zarm',
+            esModule: true,
+            resolveStyle: (name) => {
+              return `zarm/es/${name}/style/css`;
+            },
           },
         ],
-      },
-    },
-    {
-      // 自定义render
-      render() {
-        return (
-          <Form.Item>
-            <Space>
-              <Button htmlType="submit" type="primary">
-                确定
-              </Button>
-              <Button htmlType="reset">重置</Button>
-            </Space>
-          </Form.Item>
-        );
-      },
-    },
-  ];
-
-  return (
-    <Form
-      form={form}
-      onValuesChange={(v) => {
-        setData((p) => ({ ...p, ...v }));
-      }}
-    >
-      <FormRender layoutData={layout} />
-    </Form>
-  );
-}
-
-```
-
-### 实现一行n列如下 ,比如一行2列 
-
-```jsx
-
- const layout = [
-    [
-      {
-        type: Input,
-        label: '11',
-        placeholder: '请输入',
-        name: '11',
-      },
-      {
-        type: Input,
-        label: '12',
-        placeholder: '请输入',
-        name: '12',
-      },
+      }),
     ],
-    [
-      {
-        type: Input,
-        label: '21',
-        placeholder: '请输入',
-        name: '21',
-      },
-      {
-        type: Input,
-        label: '22',
-        placeholder: '请输入',
-        name: '22',
-      },
-    ],
-  ];
 ```
 
-配置项目说明
-```javascript
-export interface Item {
-  type: React.Component; // 组件类型， 比如Input 等
-  name: string;  //Form.Item的name
-  rules?: any;  // Form.Item的rules
-  label?: string; // Form.Item的label
-  render?: () => React.ReactNode; //自定义 render 
-  getJSON?: () => object | null; // 动态返回Item配置
-  elProps?: object; // 组件的props配置 , 比如type为Input, elProps则会配置到Input
-  itemProps?: object; // Form.Item的props配置，除了上面name,lable,rules三个常用的，其他的可以放在这里配置
-}
-```
+开发效果图
 
- 可以自己运行示例， yarn start / npm start 查看demo
+![vite-react.png](https://p6-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/e95544da2f2543b3a1b805acdfdb4c31~tplv-k3u1fbpfcp-watermark.image)
