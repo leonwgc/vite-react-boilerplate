@@ -9,8 +9,8 @@
 ### 代码质量和风格
 husky+lint-staged+ eslint+prettier 代码commit 自动eslint检查控制代码质量， prettier自动格式化统一代码风格 , 可以自行扩展加上commit-msg 代码提交说明检查等。
 
-### HRM
-@vitejs/plugin-react-refresh 实现react HRM 
+### HMR
+@vitejs/plugin-react-refresh 实现react HMR 
 
 ### 代码库（样式）按需加载
  样式按需加载 (组件不存在这个问题)，默认配置了antd 和zarm组件库,对于其他组件库， 参考vite-plugin-style-import 文档
