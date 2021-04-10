@@ -1,5 +1,7 @@
 #  基于vite2的react脚手架
 
+[vite-react-boilerplate](https://github.com/leonwgc/vite-react-boilerplate)
+
 ### 开发编译
 * yarn start 启动开发
 * yarn build 启动编译
@@ -37,4 +39,4 @@ husky+lint-staged+ eslint+prettier 代码commit 自动eslint检查控制代码�
 
 开发效果图
 
-![vite-react.png](https://p6-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/e95544da2f2543b3a1b805acdfdb4c31~tplv-k3u1fbpfcp-watermark.image)
+![vite-react.png](https://camo.githubusercontent.com/a02ea217c8156b6df7b6d279b9ba4fcc7884cbb405a7d0fae445914a869b9c22/68747470733a2f2f70362d6a75656a696e2e62797465696d672e636f6d2f746f732d636e2d692d6b3375316662706663702f65393535343464613266323534336233613162383035616364666462346333317e74706c762d6b3375316662706663702d77617465726d61726b2e696d616765)
