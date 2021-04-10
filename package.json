@@ -1,7 +1,7 @@
 {
   "name": "vite-react-boilerplate",
   "version": "1.0.0",
-  "description": "基于vite2开发构建的react脚手架",
+  "description": "基于vite2的react脚手架",
   "keywords": [
     "react",
     "vite",
