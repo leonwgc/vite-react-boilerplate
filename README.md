@@ -7,7 +7,7 @@
 * yarn build 启动编译
 
 ### 代码质量和风格
-husky+lint-staged+ eslint+prettier 代码commit 自动eslint检查控制代码质量， prettier自动格式化统一代码风格 , 可以自行扩展加上commit-msg 代码提交说明检查等。
+husky/lint-staged/eslint+prettier 暂存区代码提交自动检查修复 , 可以自行扩展git hooks , e.g. commit-msg 代码提交检查等。
 
 ### HMR
 @vitejs/plugin-react-refresh 实现react HMR 
@@ -35,6 +35,25 @@ husky+lint-staged+ eslint+prettier 代码commit 自动eslint检查控制代码�
         ],
       }),
     ],
+```
+
+### 自定义
+1. publicPath 
+2. 打包目标浏览器
+3. mififier 压缩terser/esbuild 自动切换
+4. 主题色配置 （antd）
+
+```js
+const customConfig = {
+  publicPath: '/', // 打包生产环境时使用
+  theme: '#004bcc', // antd 主题色
+  supportLegacyBrowsers: false, //是否支持老的的浏览器，e.g. IE ，设置true生产打包时minify使用 terser, 否则使用更快的esbuild (包体积也稍大)
+};
+
+const modifyVars = {
+  '@primary-color': customConfig.theme,
+  '@link-color': customConfig.theme,
+};
 ```
 
 开发效果图
