@@ -1,7 +1,7 @@
 import path from 'path';
-import reactRefresh from '@vitejs/plugin-react-refresh';
 import styleImport from 'vite-plugin-style-import';
 import legacy from '@vitejs/plugin-legacy';
+import react from '@vitejs/plugin-react-swc';
 
 const customConfig = {
   publicPath: '/', // 打包生产环境时使用
@@ -33,6 +33,7 @@ export default ({ command, mode }) => {
       __dev__: true,
     },
     plugins: [
+      react(),
       styleImport({
         libs: [
           {
@@ -61,7 +62,6 @@ export default ({ command, mode }) => {
   };
 
   if (command === 'serve') {
-    config.plugins.unshift(reactRefresh());
     config.server = {
       port: 9004,
     };
