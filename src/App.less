@@ -1,8 +1,9 @@
 .app {
   display: flex;
-  justify-content: center;
   align-items: center;
+  flex-direction: column;
   .logo {
+    display: block;
     width: 200px;
     height: 200px;
     background-image: url(./logo.svg);
@@ -10,7 +11,8 @@
     background-repeat: no-repeat;
   }
   .hello {
-    font-size: 32px;
+    margin-top: 16px;
+    font-size: 26px;
     color: #005cff;
   }
 }

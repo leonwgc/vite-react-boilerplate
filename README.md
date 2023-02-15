@@ -1,4 +1,4 @@
-#  基于vite2的react脚手架
+#  基于vite4 react脚手架
 
 [vite-react-boilerplate](https://github.com/leonwgc/vite-react-boilerplate)
 
@@ -9,8 +9,6 @@
 ### 代码质量和风格
 husky/lint-staged/eslint+prettier 暂存区代码提交自动检查修复 , 可以自行扩展git hooks , e.g. commit-msg 代码提交检查等。
 
-### HMR
-@vitejs/plugin-react-refresh 实现react HMR 
 
 ### 代码库（样式）按需加载
  样式按需加载 (组件不存在这个问题)，默认配置了antd 和zarm组件库,对于其他组件库， 参考vite-plugin-style-import 文档
