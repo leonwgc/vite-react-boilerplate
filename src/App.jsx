@@ -5,7 +5,7 @@ export default function App() {
   return (
     <div className="app">
       <div className="logo"></div>
-      <div className="hello">hello, react with vite2~~</div>
+      <div className="hello">Hello, React with Vite~~</div>
     </div>
   );
 }
