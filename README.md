@@ -1,4 +1,4 @@
-#  基于vite4 react脚手架
+#  基于vite v4 的react脚手架
 
 [vite-react-boilerplate](https://github.com/leonwgc/vite-react-boilerplate)
 
@@ -56,4 +56,5 @@ const modifyVars = {
 
 开发效果图
 
-![vite-react.png](https://camo.githubusercontent.com/a02ea217c8156b6df7b6d279b9ba4fcc7884cbb405a7d0fae445914a869b9c22/68747470733a2f2f70362d6a75656a696e2e62797465696d672e636f6d2f746f732d636e2d692d6b3375316662706663702f65393535343464613266323534336233613162383035616364666462346333317e74706c762d6b3375316662706663702d77617465726d61726b2e696d616765)
+
+![vite4.png](https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/87d7f786f70342938afa26692edc3cf5~tplv-k3u1fbpfcp-watermark.image?)
