@@ -1,7 +1,8 @@
 import path from 'path';
-import styleImport from 'vite-plugin-style-import';
 import legacy from '@vitejs/plugin-legacy';
 import react from '@vitejs/plugin-react-swc';
+
+const devPort = 9004;
 
 const customConfig = {
   publicPath: '/', // 打包生产环境时使用
@@ -14,7 +15,7 @@ const modifyVars = {
   '@link-color': customConfig.theme,
 };
 
-export default ({ command, mode }) => {
+export default ({ command }) => {
   /**
    * @type {import('vite').UserConfig}
    */
@@ -28,34 +29,16 @@ export default ({ command, mode }) => {
         },
       },
     },
+    // Define global variable replacements
     define: {
       __client__: true,
       __dev__: true,
     },
-    plugins: [
-      react(),
-      styleImport({
-        libs: [
-          {
-            libraryName: 'antd',
-            esModule: true,
-            resolveStyle: (name) => {
-              return `antd/es/${name}/style/index`;
-            },
-          },
-          {
-            libraryName: 'zarm',
-            esModule: true,
-            resolveStyle: (name) => {
-              return `zarm/es/${name}/style/css`;
-            },
-          },
-        ],
-      }),
-    ],
+    plugins: [react()],
     resolve: {
       alias: {
         '~': path.resolve(__dirname, './src'),
+        '@': path.resolve(__dirname, './src'),
       },
     },
     logLevel: 'info',
@@ -63,7 +46,7 @@ export default ({ command, mode }) => {
 
   if (command === 'serve') {
     config.server = {
-      port: 9004,
+      port: devPort,
     };
   } else {
     config.base = customConfig.publicPath;
@@ -75,7 +58,7 @@ export default ({ command, mode }) => {
       outDir: `dist`,
       assetsDir: '',
       emptyOutDir: true,
-      assetsInlineLimit: 10240,
+      assetsInlineLimit: 4096,
       manifest: true,
       minify: customConfig.supportLegacyBrowsers ? 'terser' : 'esbuild',
     };

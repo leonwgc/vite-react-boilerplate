@@ -5,7 +5,7 @@ export default function App() {
   return (
     <div className="app">
       <div className="logo"></div>
-      <div className="hello">Hello, React 18 with Vite4 ~</div>
+      <div className="hello">Hello, React 18 with Vite 4 !</div>
     </div>
   );
 }
